@@ -32,15 +32,15 @@ write_csv(as_tibble(yyy),"medium.csv",col_names = FALSE)
 
 
 
-#### Big
+#### Large
 
-y <- play_erdos_renyi(40, 0.05, directed = FALSE, loops = FALSE)
+y <- play_erdos_renyi(40, 0.06, directed = FALSE, loops = FALSE)
 yy<- to_components(y)
 
 ind <- which.max(map(yy,gsize))
 
 yyy <- yy[[ind]]
 
-yyy <- activate(yyy,"edges")
+yyy <- activate(y,"edges")
 
 write_csv(as_tibble(yyy),"large.csv",col_names = FALSE)
