@@ -2,7 +2,7 @@
 Individuali didžiųjų duomenų programinių įrankių užduotis.
 
 
-Programa suranda visus Hamiltono kelius grafe arba išveda žinutę kad tokie keliai grafe neegzistuoja. Šių kelių radimas detaliau pakomentuotas faile [hamiltonian.py](https://github.com/dovmar/DDPI-Uzduotis/blob/main/hamiltonian.py).
+Programa suranda visus Hamiltono kelius paprastame grafe arba išveda žinutę kad tokie keliai grafe neegzistuoja. Šių kelių radimas detaliau pakomentuotas faile [hamiltonian.py](https://github.com/dovmar/DDPI-Uzduotis/blob/main/hamiltonian.py).
 
 
 
