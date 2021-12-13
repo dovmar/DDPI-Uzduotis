@@ -1,46 +1,37 @@
 library(tidygraph)
-library(igraph)
 library(tidyverse)
 
 
 #### Small
 
 y <- play_erdos_renyi(5, 0.8, directed = FALSE, loops = FALSE)
-yy<- to_components(y)
+yy <- activate(y,"edges")
 
-ind <- which.max(map(yy,gsize))
-
-yyy <- yy[[ind]]
-
-yyy <- activate(yyy,"edges")
-
-write_csv(as_tibble(yyy),"small.csv",col_names = FALSE)
+write_csv(as_tibble(yy),"small.csv",col_names = FALSE)
 
 
 #### Medium
 
 y <- play_erdos_renyi(15, 0.3, directed = FALSE, loops = FALSE)
-yy<- to_components(y)
+yy <- activate(y,"edges")
 
-ind <- which.max(map(yy,gsize))
-
-yyy <- yy[[ind]]
-
-yyy <- activate(yyy,"edges")
-
-write_csv(as_tibble(yyy),"medium.csv",col_names = FALSE)
+write_csv(as_tibble(yy),"medium.csv",col_names = FALSE)
 
 
 
 #### Large
 
-y <- play_erdos_renyi(40, 0.06, directed = FALSE, loops = FALSE)
-yy<- to_components(y)
+y <- play_erdos_renyi(20, 0.3, directed = FALSE, loops = FALSE)
+yy <- activate(y,"edges")
 
-ind <- which.max(map(yy,gsize))
+write_csv(as_tibble(yy),"large.csv",col_names = FALSE)
 
-yyy <- yy[[ind]]
 
-yyy <- activate(y,"edges")
 
-write_csv(as_tibble(yyy),"large.csv",col_names = FALSE)
+#### Large no Hamiltonian paths
+
+y <- play_erdos_renyi(40, 0.075, directed = FALSE, loops = FALSE)
+yy <- activate(y,"edges")
+if (to_components(yy) > 1) {
+  write_csv(as_tibble(yy),"large_no_paths.csv",col_names = FALSE)
+}
