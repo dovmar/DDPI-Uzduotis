@@ -47,6 +47,7 @@ def findHamiltonianPaths(graph, n, data):
 # Duomenys nuskaitomi tik proceso su rank == 0
 # Užkoduosiu viršūnių pavadinimus nuo 0 iki n-1 taip siekdamas, kad nepriklausomai nuo tikrųjų viršūnių pavadinimų
     # kiekvienos viršūnes užkoduotas pavadinimas atitiktų jos indeksą sąraše.
+    # Tiesa, šiuo metu programa bando konvertuoti viršūnių pavadinimus į sveikuosius skaičius
 if rank == 0:
     with open(sys.argv[1]) as file:
         reader = csv.reader(file)
