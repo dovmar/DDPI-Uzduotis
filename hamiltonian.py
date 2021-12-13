@@ -11,11 +11,13 @@ class Graph:
     def __init__(self, edges, n):
         self.adjList = [[] for i in range(n)]
         for (src, dest) in edges:
+            # programa pritaikyta nekryptiniams grafams (t.y. kiekvienai briaunai abi viršūnes viena kitai pridedamos prie kaimyninių viršūnių sąrašo)
             self.adjList[src].append(dest)
             self.adjList[dest].append(src)
 
 
 def hamiltonianPaths(graph, v, visited, path, n, list_of_paths):
+    # jeigu rastas Hamiltono kelias tai jo viršūnių pavadinimai atkoduojami
     if len(path) == n:
         path_values = path.copy()
         path_values = [inverted_dict[i] for i in path_values]
@@ -41,11 +43,11 @@ def findHamiltonianPaths(graph, n, data):
 
     return list_of_paths
 
-# failo su duomenimis pavadinimas paduodamas paleidžiant
-    # programą iš komandinės eilutės
+# Failo su duomenimis pavadinimas paduodamas paleidžiant programą iš komandinės eilutės
 # Duomenys nuskaitomi tik proceso su rank == 0
-# Laikysiu, kad grafo viršūnės visuose paduodmuose failuose
-    # numeruojamos kaip įprasta t.y. nuo 1
+# Užkoduosiu viršūnių pavadinimus nuo 0 iki n-1 taip siekdamas, kad nepriklausomai nuo tikrųjų viršūnių pavadinimų
+    # kiekvienos viršūnes užkoduotas pavadinimas atitiktų jos indeksą sąraše.
+    # Tiesa, šiuo metu programa bando konvertuoti viršūnių pavadinimus į sveikuosius skaičius
 if rank == 0:
     with open(sys.argv[1]) as file:
         reader = csv.reader(file)
@@ -60,9 +62,9 @@ if rank == 0:
             edges.append((values_dict[values[0]],values_dict[values[1]]))
             
     data = list(set([i for j in edges for i in j]))
-    inverted_dict = {y:x for x,y in values_dict.items()}
+    inverted_dict = {y:x for x,y in values_dict.items()} # sąrašas, skirtas atkoduoti atgal viršūnių pavadinimus
     n = max(data) + 1
-    graph = Graph(edges, n)
+    graph = Graph(edges, n) # sukuriamas grafo objektas
 
 else:
     graph = None
@@ -77,6 +79,7 @@ inverted_dict = comm.bcast(inverted_dict,root=0)
 
 
 def split_data(data):
+    # sukuriamas sąrašas, kurio elementai yra šąrašas viršūnių, pradėdamas nuo kurių kiekvienas procesas ieškos Hamiltono kelių
     n_items = int(len(data)/size)
     return_list = []
     for i in range(0, size-1):
@@ -105,11 +108,12 @@ results_list_full = comm.gather(results_list, root=0)
 
 # procesas rank==0 bendrus rezultatus išveda į failą
 if rank == 0:
+    # visus gautus kelius išvesiu vienu kartu
     res = ""
-    if max(results_list_full) != []:
-        for i in results_list_full:
-            if len(i) > 0:
-                for j in i:
+    if max(results_list_full) != []: # jeigu yra netučių sąrašų
+        for i in results_list_full: 
+            if len(i) > 0: # jeigu tam tikras sąrašas nėra tuščias
+                for j in i: # kiekvienam Hamiltono keliui tam tikrame sąraše
                     res = res+str(j)+"\n"
     else:
         res = "Hamiltono keliu grafe nera\n"
