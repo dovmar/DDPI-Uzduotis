@@ -19,5 +19,6 @@ Pateikiami pavyzdiniai duomenų failai:
 
 - small.csv 5 nodes 5 edges
 - medium.csv 15 nodes 30 edges
-- large.csv 40 nodes 58 edges
+- large.csv 20 nodes 57 edges
 - small_no_paths.csv 5 nodes 5 edges and no Hamiltonian paths
+- large_no_paths.csv 40 nodes 58 edges and no Hamiltonian paths
